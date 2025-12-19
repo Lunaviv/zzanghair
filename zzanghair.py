@@ -28,8 +28,47 @@
 def home():
     greeting = """안녕하세요 원장님 짱헤어입니다. \n무엇을 도와드릴까요?"""
     print(greeting)
-    menu = """디자이너[0], 고객[1], 결제내역[2], 서비스[3]"""
+    menu = """디자이너[1], 고객[2], 결제내역[3], 서비스[4]"""
     print(menu)
+    match checkInput():
+        case 1:
+            designerMenu()
+        case 2:
+            clientMenu()
+        case 3:
+            caseMenu()
+        case 4:
+            serviceMenu()
+        case _:
+            print("없는 메뉴입니다.")
+    
+
+def designerMenu():
+    print("디자이너 목록")
+    print("추가[1], 수정[2], 삭제[3]")
+
+def clientMenu():
+    print("고객 목록")
+    print("추가[1], 수정[2], 삭제[3]")
+
+def caseMenu():
+    print("결제내역")
+    print("추가[1], 수정[2], 삭제[3]")
+
+def serviceMenu():
+    print("서비스 목록")
+    print("추가[1], 수정[2], 삭제[3]")
+
+def checkInput(): #모든 메뉴에서 재사용할 사용자 인풋 검사기. 
+    y = True
+    while y == True:
+        x = input()
+        try:
+            x = float(x);
+            y = False
+        except:
+            print("입력내용을 다시 확인해주세요")
+    return x
 
 
 class Designer:
