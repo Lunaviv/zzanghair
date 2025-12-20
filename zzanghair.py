@@ -1,21 +1,15 @@
 """[필요 클래스]
-
 ① 직원 클래스
 - 직원 정보 관리
-
 ② 고객 클래스
 - 고객 정보 관리
-
 ③ 직원-고객 클래스 (이름 지어줘)
 - 어떤 직원이 어떤 고객에게 어떤 서비스를 했는지
-
 ④ 서비스 클래스 (이름 지어줘)
 - 가격 정보 등등
-
 [필요 기능 = CRUD]
 - 위 클래스들에 대한 Create / Read / Update / Delete 기능
 - UI는 아무렇게나 text-based로!
-
 저장은 list로 하자 우선 영구저장 X
 
 이거 기반으로 하나씩 기능을 추가해가면 될듯?
@@ -26,6 +20,10 @@
 """
 
 def home():
+    global currentPage
+    currentPage = "Home"
+    global numberOfOptions
+    numberOfOptions = 4
     greeting = """안녕하세요 원장님 짱헤어입니다. \n무엇을 도와드릴까요?"""
     print(greeting)
     menu = """디자이너[1], 고객[2], 결제내역[3], 서비스[4]"""
@@ -40,24 +38,49 @@ def home():
         case 4:
             serviceMenu()
         case _:
-            print("없는 메뉴입니다.")
+            print("없는 메뉴입니다. 홈으로 돌아갑니다.")
+            home()
     
+options = "추가[1], 수정[2], 삭제[3]"
+currentPage = "Home"
+designerList = []
+clientList = []
+caseList = []
+serviceList = []
+numberOfOptions = 0
+
+def menu():
+    global numberOfOptions
+    numberOfOptions = 3
 
 def designerMenu():
-    print("디자이너 목록")
-    print("추가[1], 수정[2], 삭제[3]")
+    menu()
+    global currentPage 
+    currentPage = "디자이너 목록"
+    print(currentPage)
+    print(options)
+    memuInput(checkInput())
 
 def clientMenu():
-    print("고객 목록")
-    print("추가[1], 수정[2], 삭제[3]")
+    menu()
+    global currentPage 
+    currentPage = "고객 목록"
+    print(currentPage)
+    print(options)
 
 def caseMenu():
-    print("결제내역")
-    print("추가[1], 수정[2], 삭제[3]")
+    menu()
+    global currentPage 
+    currentPage = "결제내역"
+    print(currentPage)
+    print(options)
 
 def serviceMenu():
-    print("서비스 목록")
-    print("추가[1], 수정[2], 삭제[3]")
+    menu()
+    global currentPage 
+    currentPage = "서비스 목록"
+    print(currentPage)
+    print(options)
 
 def checkInput(): #모든 메뉴에서 재사용할 사용자 인풋 검사기. 
     y = True
@@ -69,6 +92,24 @@ def checkInput(): #모든 메뉴에서 재사용할 사용자 인풋 검사기.
         except:
             print("입력내용을 다시 확인해주세요")
     return x
+
+def memuInput(x): #C_UD 통합 시도
+        match x:
+            case 1:
+                print("추가")
+            case 2:
+                print("수정")
+            case 3:
+                print("삭제")
+            case _:
+                print("없는 메뉴입니다. 홈으로 돌아갑니다.")
+                home()
+
+def add():
+    match currentPage:
+        case "디자이너 목록":
+            print("디자이너 추가")
+            designerList.append(Designer)
 
 
 class Designer:
