@@ -17,4 +17,12 @@ class ClientManager:
     def show(self):
         for client in self.clients:
             client.show()
-            
+
+    def count(self):
+        return len(self.clients)
+
+    def update(self, n, updatedClient):
+        self.clients[n] = updatedClient
+
+    def delete(self, n):
+        self.clients.pop(n)

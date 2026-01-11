@@ -1,41 +1,60 @@
 from components.client import Client,ClientManager
 # from components.designer import
 
-def showClient():
-    ClientManager.show()
 
-#
-def addClient():
-    #ㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠ
-    newClient = Client(name, age, sex)
+
+def addClient(cman):
+    print("고객추가")
     name = input("name: ")
-    age = input("age: ")
+    age = int(input("age: "))
     sex = input("sex: ")
-    
-    ClientManager.add(newClient)
-    
-def main():
-    print("미용실CRM")
-    cmd = input(">>")
-    error = "없는 메뉴입니다. help로 메뉴 목록을 확인하세요."
-    clientManager = ClientManager()
-    
-    #고객CRUD
-    if cmd == "addc":
-        print("고객추가")
-        addClient()
-        main()
-    elif cmd == "readc":
-        print("고객목록")
-        ClientManager.show()
-        main()
-    elif cmd == "updc":
-        print("고객수정")
-    elif cmd == "delc":
-        print("고객삭제")
+    newClient = Client(name, age, sex)
+    cman.add(newClient)
+
+def showClient(cman):
+    cman.show()
+
+def updateClient(cman):
+    if cman.count() == 0:
+        print("No Clients in the list")
     else:
-        print(error)
-        main()
+        cman.show()
+        updateTarget = int(input("몇번째 고객을 수정하시겠습니까?: "))-1
+        newName = input("name: ")
+        newAge = int(input("age: "))
+        newSex = input("sex: ")
+        updatedClient = Client(newName, newAge, newSex)
+        cman.update(updateTarget, updatedClient)
+
+    
+def deleteClient(cman):
+    cman.show()
+    deleteTarget = int(input("몇번째 고객을 삭제하시겠습니까?: "))
+    if deleteTarget > cman.count():
+        print("No client fount in that index")
+    else:
+        cman.delete(deleteTarget-1)
+        
+def main():
+    cman = ClientManager()
+    while True:
+        print("미용실 CRM")
+        cmd = input("명령어를 입력하세요. 명령어 목록(help):")
+
+        
+        match cmd:
+            case "addc":
+                addClient(cman)
+            case "clist":
+                cman.show()
+            case "cupd":
+                updateClient(cman)
+            case "delc":
+                deleteClient(cman)
+            case _:
+                print("없는 메뉴입니다.")
+        
 
 
-main()
+if __name__ == "__main__":
+    main()
