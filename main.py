@@ -51,6 +51,8 @@ def main():
                 updateClient(cman)
             case "delc":
                 deleteClient(cman)
+            case "clear":
+                cman.clear()
             case _:
                 print("없는 메뉴입니다.")
         
