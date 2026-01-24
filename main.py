@@ -1,7 +1,4 @@
 from components.client import Client,ClientManager
-# from components.designer import
-
-
 
 def addClient(cman):
     print("고객추가")

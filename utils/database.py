@@ -1,27 +1,22 @@
 import os
 
-def save(newClient):
-    with open("clients.data", "a") as f:
-        for c in newClient:
-            line = f"{c.name}\n{c.age}\n{c.sex}\n"
-            f.write(line)
+class Database:
+    def __init__(self, file="clients.data"):
+        self.file = file
 
-def read():
-    clients = []
-    with open("clients.data", "r") as f:
-        lines = f.readlines()
-        for i in range(0, len(lines), 3):
-            name = lines[i]
-            age = lines[i+1]
-            sex = lines[i+2]
-            clients.append((name, age, sex))
-    return clients
+    def save(self, clientList):
+        with open(self.file, "w") as f:
+            for c in clientList:
+                line = f"{c.name}\n{c.age}\n{c.sex}\n"
+                f.write(line)
 
-def load():
-    with open("clients.data", "r") as f:
-        pass
-            
-        
-def clear():
-    os.remove("clients.data")
+    def load(self): #raw to list
+        if not os.path.exists(self.file):
+            return []
+        with open(self.file, "r") as f:
+            return [line.strip() for line in f.readlines()]
+                
+    def clear(self):
+        if os.path.exists(self.file):
+            os.remove(self.file)
 
